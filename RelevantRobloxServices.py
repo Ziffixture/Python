@@ -5,12 +5,12 @@
 # Scans the API dump for all members tagged "Service". Excludes services that are deprecated or marked "NotBrowsable".
 
 
-from requests  import get
-from json      import loads
+from requests import get
+from json     import loads
 
 
-API_DUMP_VERSION_URL  = "http://setup.roblox.com/versionQTStudio"
-API_DUMP_URL          = "http://setup.roblox.com/{0}-API-Dump.json"
+API_DUMP_VERSION_URL = "http://setup.roblox.com/versionQTStudio"
+API_DUMP_URL         = "http://setup.roblox.com/{0}-API-Dump.json"
 
 
 class ServiceRetrievalFailure(Exception): pass
@@ -25,14 +25,14 @@ def make_get_request(url):
         raise ServiceRetrievalFailure()
         
 def meets_required(tags):
-    is_service = "Service" in tags
+    is_service  = "Service" in tags
     is_relevant = "Deprecated" not in tags and "NotBrowsable" not in tags
 
     return is_service and is_relevant
         
 def get_services():
-    api_dump_version  = make_get_request(API_DUMP_VERSION_URL)
-    api_dump          = loads(make_get_request(API_DUMP_URL.format(api_dump_version)))
+    api_dump_version = make_get_request(API_DUMP_VERSION_URL)
+    api_dump         = loads(make_get_request(API_DUMP_URL.format(api_dump_version)))
 
     services = [
         class_member["Name"] 
