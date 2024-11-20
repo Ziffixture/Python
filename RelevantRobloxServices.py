@@ -44,4 +44,4 @@ def get_services():
     
 
 if __name__ == "__main__":
-    print(*get_services())
+    print(*get_services(), sep="\n")
